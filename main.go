@@ -65,20 +65,12 @@ func handleWebSocket(c *websocket.Conn) {
 	for {
 		messageType, p, err := c.ReadMessage()
 		if err != nil {
-			fmt.Println("WebSocket connection closed")
 			break
 		}
 
 		// Handle different types of WebSocket messages
 		switch messageType {
 		case websocket.TextMessage:
-			message := string(p)
-			partnerUser := ""
-			if user.PartnerId != 0 {
-				partnerUser = users[user.PartnerId].Username
-			}
-			fmt.Printf("Received message from %s: %s to %s\n", user.Username, message, partnerUser)
-
 			// Send the message to the paired user
 			if pairedUser := findRandomPair(user.ID); pairedUser != nil {
 				if err := pairedUser.Conn.WriteMessage(messageType, p); err != nil {
