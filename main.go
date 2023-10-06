@@ -35,7 +35,7 @@ func main() {
 	app.Get("/ws", websocket.New(handleWebSocket))
 
 	// Start the Fiber app
-	err := app.Listen(":8001")
+	err := app.Listen(":8009")
 	if err != nil {
 		log.Fatal(err)
 	}
